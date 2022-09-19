@@ -1,0 +1,122 @@
+[package]
+name = "heatmap-enclave"
+version = "1.0.0"
+authors = ["Nerla","Enigma MPC"]
+edition = "2018"
+
+[lib]
+name = "heatmapenclave"
+crate-type = ["staticlib"]
+
+[features]
+default = []
+
+[dependencies]
+
+serde = { git = "https://github.com/mesalock-linux/serde-sgx.git", features=["serde_derive"] }
+serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx.git"}
+rmp-serde = { git = "https://github.com/njeans/msgpack-rust.git", default-features = false }
+
+lazy_static = {version = "1.4.0", features = ["spin_no_std"] }
+
+mc-oblivious-traits = "2.0.0"
+mc-oblivious-ram = { path = "../../../sgxoram/mc-oblivious-ram" }
+aligned-cmov = "2.0.0"
+mc-fog-ocall-oram-storage-trusted = {path = "../../../sgxoram/mobilecoin/fog/ocall_oram_storage/trusted", features = ["sdk"]}
+
+rand_hc = "0.3.1"
+rand_core = "0.6.3"
+
+tiny-keccak  = "1.4"
+sha2 = { version = "0.9", default-features = false }
+rustc-hex = { version = "2.1.0", default-features = false }
+arrayvec = { version = "0.4.10", default-features = false }
+libsecp256k1 = { version = "0.7.0", git = "https://github.com/njeans/libsecp256k1.git", default-features = false, features = ["hmac", "static-context"] }
+ring = {package = "ring", git = "https://github.com/mesalock-linux/ring-sgx", tag = "v0.16.5"}
+
+sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tstd = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_trts = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_rand = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tseal = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tse = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+
+
+[patch.'https://github.com/apache/teaclave-sgx-sdk.git']
+sgx_alloc = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_alloc" }
+sgx_build_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_build_helper" }
+sgx_cov = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_cov" }
+sgx_crypto_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_crypto_helper" }
+sgx_libc = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_libc" }
+sgx_rand = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_rand" }
+sgx_rand_derive = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_rand_derive" }
+sgx_serialize = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize" }
+sgx_serialize_derive = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize_derive" }
+sgx_serialize_derive_internals = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize_derive_internals" }
+sgx_tcrypto = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tcrypto" }
+sgx_tcrypto_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tcrypto_helper" }
+sgx_tdh = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tdh" }
+sgx_tkey_exchange = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tkey_exchange" }
+sgx_tprotected_fs = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tprotected_fs" }
+sgx_trts = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_trts" }
+sgx_tse = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tse" }
+sgx_tseal = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tseal" }
+sgx_tstd = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tstd" }
+sgx_tunittest = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tunittest" }
+sgx_types = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_types" }
+sgx_ucrypto = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_ucrypto" }
+sgx_unwind = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_unwind" }
+sgx_urts = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_urts" }
+
+[patch.'https://github.com/baidu/rust-sgx-sdk.git']
+sgx_alloc = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_alloc" }
+sgx_build_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_build_helper" }
+sgx_cov = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_cov" }
+sgx_crypto_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_crypto_helper" }
+sgx_libc = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_libc" }
+sgx_rand = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_rand" }
+sgx_rand_derive = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_rand_derive" }
+sgx_serialize = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize" }
+sgx_serialize_derive = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize_derive" }
+sgx_serialize_derive_internals = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_serialize_derive_internals" }
+sgx_tcrypto = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tcrypto" }
+sgx_tcrypto_helper = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tcrypto_helper" }
+sgx_tdh = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tdh" }
+sgx_tkey_exchange = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tkey_exchange" }
+sgx_tprotected_fs = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tprotected_fs" }
+sgx_trts = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_trts" }
+sgx_tse = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tse" }
+sgx_tseal = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tseal" }
+sgx_tstd = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tstd" }
+sgx_tunittest = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_tunittest" }
+sgx_types = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_types" }
+sgx_ucrypto = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_ucrypto" }
+sgx_unwind = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_unwind" }
+sgx_urts = { path = "../../../incubator-teaclave-sgx-sdk-master/sgx_urts" }
+
+[patch.'https://github.com/mesalock-linux/serde-sgx.git']
+serde = {git = "https://github.com/njeans/serde-sgx.git"}
+serde_derive = {git = "https://github.com/njeans/serde-sgx.git"}
+
+[patch.'https://github.com/mesalock-linux/serde-json-sgx.git']
+serde_json = {git = "https://github.com/njeans/serde-json-sgx.git"}
+
+[patch.crates-io]
+byteorder =  { version = "1.4.3", git = "https://github.com/njeans/byteorder-sgx" }
+aligned-cmov = {path = "../../../sgxoram/aligned-cmov"}
+balanced-tree-index = {path = "../../../sgxoram/balanced-tree-index"}
+
+
+serde = { git = "https://github.com/njeans/serde-sgx.git"}
+serde_json = { git = "https://github.com/njeans/serde-json-sgx.git"}
+serde_derive = { git = "https://github.com/njeans/serde-sgx.git"}
+serde_bytes = {git = "https://github.com/njeans/serde-bytes-sgx.git"}
+
+
+schnorrkel-og = { git = "https://github.com/mobilecoinfoundation/schnorrkel.git", rev = "9b48418556b0af476be2313309bc5a23fb8b351d" }
+x25519-dalek = { git = "https://github.com/mobilecoinfoundation/x25519-dalek.git", rev = "672f29ef4b3addd9a3c4888cf4b836b243bda595" }
+
+ed25519-dalek = { git = "https://github.com/mobilecoinfoundation/ed25519-dalek.git", rev = "78bdc2a0b0af852cb4e47a0ca9be74bdf77c57b6" }
+
+curve25519-dalek = {git = "https://github.com/dalek-cryptography/curve25519-dalek", tag = "4.0.0-pre.1"}
+sha2 = {git = "https://github.com/RustCrypto/hashes.git", tag="sha2-v0.9.8"}

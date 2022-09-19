@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  billboard:
+    image: trufflesuite/ganache-cli:v6.12.2
+    ports:
+      - 8545:8545
+    volumes:
+      - accounts:/accounts/
+    command: ["--deterministic", "nerla","--gasLimit","0x6691b70", "--accounts", "10", "--account_keys_path", "/accounts/accounts.json", "--debug"]
+  enclave:
+    image: heatmapenclave
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../app:/root/sgx/Heatmap/app
+      - ../solidity:/root/sgx/Heatmap/solidity
+      - ../enclave:/root/sgx/Heatmap/enclave
+      - ../scripts:/root/sgx/Heatmap/scripts
+      - accounts:/root/sgx/Heatmap/app/accounts/
+    working_dir: /root/sgx/Heatmap/scripts
+    depends_on:
+      - billboard
+    ports:
+      - 5553:5553
+    command: ["./run.sh"]
+
+volumes:
+  accounts:

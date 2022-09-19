@@ -1,0 +1,7 @@
+secp256k1==0.14.0
+solc==0.0.0a0
+zmq==0.0.0
+web3==5.30.0
+py-solc-x==1.1.1
+numpy==1.19.4
+matplotlib==3.5.3
