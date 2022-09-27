@@ -34,6 +34,9 @@ docker-compose run --rm enclave /bin/bash
 * User 2 & 3 data was included by the admin
 * User 4 data was omitted by themselves and posted to bulletin board but was includen by the admin via the bulletin board
 
-Based on 
+# Based on
+SafeTrace from srtlabs
 
-[](https://github.com/njeans/SafeTrace.git)
+[scrt/SafeTrace](https://github.com/scrtlabs/SafeTrace.git)
+
+[njeans/SafeTrace](https://github.com/njeans/SafeTrace.git)
