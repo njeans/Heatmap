@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.4.22 <0.9.0;
-//import "openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
 
 contract Heatmap {
     struct User {
         mapping (uint => bytes) user_data;//mapping data from every audit num won't necessarily be provided
         uint last_audit_num;
         uint next_audit_num;
-//        bytes userid;
      }
 
     struct AuditData {
@@ -43,10 +41,6 @@ contract Heatmap {
     address public enclave_address;
     bytes public enclave_publickey;
     bytes public enclave_publickey_sig;
-
-    bytes32 public tmp1;
-    bytes public tmp2;
-    address public tmp3;
 
     constructor(bytes memory enclave_key, bytes memory signature) {
         admin_addr = msg.sender;
@@ -117,7 +111,7 @@ contract Heatmap {
 
         bytes32 users_hash = hash_address_list("AUDIT_DATA:", included_user_addresses_);
         address signer = recover(users_hash, signature);
-//        require(signer == enclave_address);
+        require(signer == enclave_address);
         for (uint i=0; i<user_list.length; i++) {
             address payable user_addr = payable(user_list[i]);
             User storage user = user_info[user_addr];
@@ -194,9 +188,7 @@ contract Heatmap {
         bytes memory eth_prefix = '\x19Ethereum Signed Message:\n';
         packed = abi.encodePacked(eth_prefix,uint2str(packed.length),packed);
 
-        tmp2=packed;
         bytes32 hash = keccak256(packed);
-        tmp1=hash;
         return hash;
     }
 
