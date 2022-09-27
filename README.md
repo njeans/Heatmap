@@ -1,6 +1,6 @@
 # Heatmap
 This is a privacy preserving voluntary COVID-19 self-reporting platform for contact tracing. Users share your (encrypted) 
-location history and test status, generate a heatmap of high exposure areas.
+location history and test status, generate a heatmap of high exposure areas. 
 
 # Demo
 
@@ -38,5 +38,3 @@ docker-compose run --rm enclave /bin/bash
 SafeTrace from srtlabs
 
 [scrt/SafeTrace](https://github.com/scrtlabs/SafeTrace.git)
-
-[njeans/SafeTrace](https://github.com/njeans/SafeTrace.git)
